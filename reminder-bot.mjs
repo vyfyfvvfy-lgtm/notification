@@ -1,4 +1,4 @@
-import { DatabaseSync } from 'node:sqlite';
+import Database from 'better-sqlite3';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { createInterface } from 'node:readline/promises';
@@ -91,7 +91,7 @@ function parseDate(value, offset) {
 }
 
 export function createBot(path, api, now = Date.now) {
-  const db = new DatabaseSync(path);
+  const db = new Database(path);
   db.exec(`
     PRAGMA journal_mode = WAL;
     CREATE TABLE IF NOT EXISTS users (
